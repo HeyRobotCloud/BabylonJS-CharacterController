@@ -4,3 +4,4 @@ lib
 *.bat
 
 **/ig_*.*
+.DS_Store
