@@ -16,9 +16,9 @@
   "main": "dist/CharacterController.js",
   "types": "dist/CharacterController.d.ts",
   "devDependencies": {
-    "babylonjs": "^4.1.0",
-    "babylonjs-inspector": "^4.1.0",
-    "babylonjs-loaders": "^4.1.0",
+    "babylonjs": "^4.2.0",
+    "babylonjs-inspector": "^4.2.0",
+    "babylonjs-loaders": "^4.2.0",
     "terser-webpack-plugin": "^1.4.3",
     "ts-loader": "^5.4.5",
     "typescript": "^3.8.3",

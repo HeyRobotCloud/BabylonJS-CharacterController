@@ -122,7 +122,7 @@ export class CharacterController {
      *  ....
      *   ....
      * }
-     * 
+     *
      * @param agMap a map of character controller animation name to animationGroup
      */
     public setAnimationGroups(agMap: {}) {
@@ -143,7 +143,7 @@ export class CharacterController {
      *  "idle" : {"name":"myIdle","loop":true,"rate":1},
      *  ....
      * }
-     * 
+     *
      * @param arMap a map of character controller animation name to animationRange data
      */
 
@@ -154,18 +154,18 @@ export class CharacterController {
 
     /**
      * sets the action data.
-     * 
+     *
      * return "ar" or "ag" depending on if the data provided
      * was animation range or animation group data respt.
-     * 
+     *
      * TODO should validate provided data.
      * In other words if animation range provided make sure
      * the range exist in the skeleton
      * or if animation group provided make sure the animation group
      * can be played on this avataor
-     * 
-     * @param actmapI 
-     * @returns 
+     *
+     * @param actmapI
+     * @returns
      */
     public setActionMap(actmapI: ActionMap): string {
         let agMap: boolean = false;
@@ -420,9 +420,9 @@ export class CharacterController {
 
 
     /**
-     * user should call this whenever the user changes the camera checkCollision 
+     * user should call this whenever the user changes the camera checkCollision
      * property
-     * 
+     *
      */
     public cameraCollisionChanged() {
         this._savedCameraCollision = this._camera.checkCollisions;
@@ -432,10 +432,10 @@ export class CharacterController {
     }
 
     /**
-     * if av has the required anim (walk, run etc) then 
+     * if av has the required anim (walk, run etc) then
      * mark that anim as existing
-     * 
-     * @param skel 
+     *
+     * @param skel
      */
 
     private _checkAnimRanges(skel: Skeleton) {
@@ -492,13 +492,13 @@ export class CharacterController {
     }
     /**
      * Use this to set  turning off.
-     * When turining is off 
+     * When turining is off
      * a) turn left or turn right keys result in avatar facing and moving left or right with respect to camera.
      * b) walkback/runback key results in avatar facing back and walking/running towards camera.
-     * 
+     *
      * This setting has no effect when mode is 1.
-     * 
-     * @param b 
+     *
+     * @param b
      */
     public setTurningOff(b: boolean) {
         this._noRot = b;
@@ -509,17 +509,17 @@ export class CharacterController {
 
     /**
         * checks if a have left hand , right hand issue.
-        * In other words if a mesh is a LHS mesh in RHS system or 
+        * In other words if a mesh is a LHS mesh in RHS system or
         * a RHS mesh in LHS system
         * The X axis will be reversed in such cases.
         * thus Cross product of X and Y should be inverse of Z.
         * BABYLONJS GLB models are RHS and exhibit this behavior
-        * 
+        *
         */
     private _isRHS = false;
     private _signRHS = -1;
     private _setRHS(mesh: TransformNode) {
-        const meshMatrix: Matrix = mesh.getWorldMatrix();
+        const meshMatrix: any = mesh.getWorldMatrix();
         const _localX = Vector3.FromFloatArray(meshMatrix.m, 0);
         const _localY = Vector3.FromFloatArray(meshMatrix.m, 4);
         const _localZ = Vector3.FromFloatArray(meshMatrix.m, 8);
@@ -542,7 +542,7 @@ export class CharacterController {
     private _ffSign: number;
     private _ff: boolean;
     //in mode 0, av2cam is used to align avatar with camera , with camera always facing avatar's back
-    //note:camera alpha is measured anti-clockwise , avatar rotation is measured clockwise 
+    //note:camera alpha is measured anti-clockwise , avatar rotation is measured clockwise
     private _av2cam;
     public setFaceForward(b: boolean) {
         this._ff = b;
@@ -745,7 +745,7 @@ export class CharacterController {
         this._avatar.moveWithCollisions(disp);
         if (jumpDist < 0) {
             //this.avatar.ellipsoid.y=this._ellipsoid.y;
-            //check if going up a slope or back on flat ground 
+            //check if going up a slope or back on flat ground
             if ((this._avatar.position.y > this._avStartPos.y) || ((this._avatar.position.y === this._avStartPos.y) && (disp.length() > 0.001))) {
                 this._endJump();
             } else if (this._avatar.position.y < this._jumpStartPosY) {
@@ -1058,7 +1058,7 @@ export class CharacterController {
             this._freeFallDist = u * dt + this._gravity * dt * dt / 2;
             this._idleFallTime = this._idleFallTime + dt;
         }
-        //if displacement is less than 0.01(? need to verify further) then 
+        //if displacement is less than 0.01(? need to verify further) then
         //moveWithDisplacement down against a surface seems to push the AV up by a small amount!!
         if (this._freeFallDist < 0.01) return anim;
         const disp: Vector3 = new Vector3(0, -this._freeFallDist, 0);
@@ -1069,7 +1069,7 @@ export class CharacterController {
             //                this.idleFallTime = 0;
             this._groundIt();
         } else if (this._avatar.position.y < this._avStartPos.y) {
-            //AV is going down. 
+            //AV is going down.
             //AV is either in free fall or is sliding along a downward slope
             //
             //if the actual displacemnt is same as the desired displacement then AV is in freefall
@@ -1417,17 +1417,17 @@ export class CharacterController {
      * The avatar/character can be made up of multiple meshes arranged in a hierarchy.
      * As such we will pick the root of the hierarchy as the avatar.
      * The root should be a mesh as otherwise we cannot move it with moveWithCollision() method.
-     * 
+     *
      * Mutiple meshes in the hierarchy may have skeletons (if two or more meshes have skeleton then
-     * the skeleton will mostly likely be the same). 
+     * the skeleton will mostly likely be the same).
      * So we will pick as avatar skeleton, the  skeleton of the first mesh in the hierachy which has
-     * a skeleton 
-     * 
-     * @param avatar 
-     * @param camera 
-     * @param scene 
+     * a skeleton
+     *
+     * @param avatar
+     * @param camera
+     * @param scene
      * @param actionMap - maps actions to animations and other data like speed,sound etc
-     * @param faceForward 
+     * @param faceForward
      */
     constructor(avatar: Mesh, camera: ArcRotateCamera, scene: Scene, actionMap?: {}, faceForward = false) {
 
